@@ -3,7 +3,7 @@ package io.sudhakar.student.controller;
 import io.sudhakar.student.dto.MyUserDetails;
 import io.sudhakar.student.dto.AuthenticationResponse;
 import io.sudhakar.student.dto.User;
-import io.sudhakar.student.service.JwtUserDetailsService;
+import io.sudhakar.student.service.impl.JwtUserDetailsService;
 import io.sudhakar.student.util.JwtUtil;
 
 import lombok.extern.slf4j.Slf4j;
