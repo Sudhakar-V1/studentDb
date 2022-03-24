@@ -1,6 +1,6 @@
 package io.sudhakar.student.filter;
 
-import io.sudhakar.student.service.JwtUserDetailsService;
+import io.sudhakar.student.service.impl.JwtUserDetailsService;
 import io.sudhakar.student.util.JwtUtil;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -1,4 +1,4 @@
-package io.sudhakar.student.service;
+package io.sudhakar.student.service.impl;
 
 import io.sudhakar.student.entity.UserDetailsEntity;
 import io.sudhakar.student.dto.User;
