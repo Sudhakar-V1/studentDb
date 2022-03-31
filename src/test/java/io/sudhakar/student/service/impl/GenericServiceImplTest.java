@@ -30,7 +30,7 @@ class GenericServiceImplTest {
     }
 
     /*
-    Given executeQuery(null, queryName, new StudentMapper()),getAllStudents(queryName)
+    Given executeQuery(null, new StudentMapper()),getAllStudents()
     Then Students ,ServiceResponse
     Scenario SUCCESS
     */
@@ -53,7 +53,7 @@ class GenericServiceImplTest {
         Mockito.when(jdbcRepository.executeQuery(queryName))
                 .thenReturn(students);
 
-        ServiceResponse<List<Student>> serviceResponse = genericService.getAllStudents(queryName);
+        ServiceResponse<List<Student>> serviceResponse = genericService.getAllStudents();
 
         serviceResponse.setHttpStatus(HttpStatus.OK);
         serviceResponse.setData(students);
@@ -67,11 +67,10 @@ class GenericServiceImplTest {
         assertEquals("java Script", serviceResponse.getData().get(0).getCourse());
     }
 
-
-     /*
-     Given executeQuery(null, queryName, new StudentMapper()),getAllStudents(queryName)
-     Then Students ,ServiceResponse
-     Scenario INTERNAL_SERVER_ERROR
+    /*
+    Given executeQuery(null, new StudentMapper()),getAllStudents()
+    Then Students ,ServiceResponse
+    Scenario INTERNAL_SERVER_ERROR
      */
 
     @Test
@@ -82,14 +81,14 @@ class GenericServiceImplTest {
         Mockito.when(jdbcRepository.executeQuery(queryName))
                 .thenThrow(new NullPointerException(""));
 
-        ServiceResponse<List<Student>> serviceResponse = genericService.getAllStudents(queryName);
+        ServiceResponse<List<Student>> serviceResponse = genericService.getAllStudents();
 
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, serviceResponse.getHttpStatus());
     }
 
     /*
-    Given executeAddQuery(student,queryName), addStudent(student,queryName)
+    Given executeAddQuery(student), addStudent(student)
     Then ServiceResponse
     Scenario SUCCESS
     */
@@ -107,7 +106,7 @@ class GenericServiceImplTest {
 
         Mockito.doNothing().when(jdbcRepository).executeAddQuery(student, queryName);
 
-        ServiceResponse<?> serviceResponse = genericService.addStudent(student, queryName);
+        ServiceResponse<Void> serviceResponse = genericService.addStudent(student);
         serviceResponse.setHttpStatus(HttpStatus.OK);
 
         assertEquals(HttpStatus.OK, serviceResponse.getHttpStatus());
@@ -115,7 +114,7 @@ class GenericServiceImplTest {
     }
 
     /*
-    Given executeAddQuery(student,queryName), addStudent(student,queryName)
+    Given executeAddQuery(student), addStudent(student)
     Then ServiceResponse
     Scenario INTERNAL_SERVER_ERROR
     */
@@ -125,7 +124,7 @@ class GenericServiceImplTest {
         Mockito.doThrow(new NullPointerException(""))
                 .when(jdbcRepository).executeAddQuery(Mockito.any(), Mockito.any());
 
-        ServiceResponse<?> serviceResponse = genericService.addStudent(Mockito.any(), Mockito.any());
+        ServiceResponse<Void> serviceResponse = genericService.addStudent(Mockito.any());
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, serviceResponse.getHttpStatus());
@@ -133,7 +132,7 @@ class GenericServiceImplTest {
     }
 
     /*
-    Given executeUpdateQuery(student, queryName), updateStudent(student, queryName)
+    Given executeUpdateQuery(student), updateStudent(student)
     Then ServiceResponse
     Scenario SUCCESS
     */
@@ -151,7 +150,7 @@ class GenericServiceImplTest {
 
         Mockito.doNothing().when(jdbcRepository).executeUpdateQuery(student, queryName);
 
-        ServiceResponse<?> serviceResponse = genericService.updateStudent(student, queryName);
+        ServiceResponse<Void> serviceResponse = genericService.updateStudent(student, 1);
         serviceResponse.setHttpStatus(HttpStatus.OK);
 
         assertEquals(HttpStatus.OK, serviceResponse.getHttpStatus());
@@ -159,7 +158,7 @@ class GenericServiceImplTest {
     }
 
     /*
-    Given executeUpdateQuery(student, queryName), updateStudent(student, queryName)
+    Given executeUpdateQuery(student), updateStudent(student)
     Then ServiceResponse
     Scenario INTERNAL_SERVER_ERROR
     */
@@ -169,7 +168,7 @@ class GenericServiceImplTest {
         Mockito.doThrow(new NullPointerException(""))
                 .when(jdbcRepository).executeUpdateQuery(Mockito.any(), Mockito.any());
 
-        ServiceResponse<?> serviceResponse = genericService.updateStudent(Mockito.any(), Mockito.any());
+        ServiceResponse<Void> serviceResponse = genericService.updateStudent(Mockito.any(), Mockito.any());
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, serviceResponse.getHttpStatus());
@@ -177,25 +176,25 @@ class GenericServiceImplTest {
     }
 
     /*
-    Given executeDeleteQuery(id,queryName), deleteStudent(id,queryName)
+    Given executeDeleteQuery(id), deleteStudent(id)
     Then ServiceResponse
     Scenario SUCCESS
     */
     @Test
     void deleteStudentOK() {
 
-//        Student student = new Student();
-//        student.setId(1);
-//        student.setAge(24);
-//        student.setName("arr");
-//        student.setCourse("java Script");
-//        student.setPlace("pune");
+        Student student = new Student();
+        student.setId(1);
+        student.setAge(24);
+        student.setName("arr");
+        student.setCourse("java Script");
+        student.setPlace("pune");
 
         String queryName = "delete";
 
         Mockito.doNothing().when(jdbcRepository).executeDeleteQuery(1, queryName);
 
-        ServiceResponse<?> serviceResponse = genericService.deleteStudent(1, queryName);
+        ServiceResponse<Void> serviceResponse = genericService.deleteStudent(1);
         serviceResponse.setHttpStatus(HttpStatus.OK);
 
         assertEquals(HttpStatus.OK, serviceResponse.getHttpStatus());
@@ -203,7 +202,7 @@ class GenericServiceImplTest {
     }
 
     /*
-    Given executeDeleteQuery(id,queryName), deleteStudent(id,queryName)
+    Given executeDeleteQuery(id), deleteStudent(id)
     Then ServiceResponse
     Scenario INTERNAL_SERVER_ERROR
     */
@@ -215,15 +214,15 @@ class GenericServiceImplTest {
         Mockito.doThrow(new NullPointerException(""))
                 .when(jdbcRepository).executeDeleteQuery(1, queryName);
 
-        ServiceResponse<?> serviceResponse = genericService.deleteStudent(1, queryName);
+        ServiceResponse<Void> serviceResponse = genericService.deleteStudent(1);
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, serviceResponse.getHttpStatus());
 
     }
 
-     /*
-    Given getStudent(id,queryName),executeByIdQuery(null, queryName, new StudentMapper(),id)
+    /*
+    Given getStudent(id),executeByIdQuery(null, new StudentMapper(),id)
     Then  ServiceResponse, student
     Scenario SUCCESS
      */
@@ -245,7 +244,7 @@ class GenericServiceImplTest {
         Mockito.when(jdbcRepository.executeByIdQuery(1, queryName))
                 .thenReturn(students);
 
-        ServiceResponse<List<Student>> serviceResponse = genericService.getStudent(1, queryName);
+        ServiceResponse<List<Student>> serviceResponse = genericService.getStudent(1);
 
         serviceResponse.setHttpStatus(HttpStatus.OK);
         serviceResponse.setData(students);
@@ -261,7 +260,7 @@ class GenericServiceImplTest {
 
 
     /*
-    Given getStudent(id,queryName),executeByIdQuery(null, queryName, new StudentMapper(),id)
+    Given getStudent(id),executeByIdQuery(null, new StudentMapper(),id)
     Then  ServiceResponse, student
     Scenario ERROR (INTERNAL_SERVER_ERROR)
     */
@@ -273,7 +272,7 @@ class GenericServiceImplTest {
         when(jdbcRepository.executeByIdQuery(1, queryName))
                 .thenThrow(new NullPointerException(""));
 
-        ServiceResponse<List<Student>> serviceResponse = genericService.getStudent(1, queryName);
+        ServiceResponse<List<Student>> serviceResponse = genericService.getStudent(1);
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, serviceResponse.getHttpStatus());
@@ -281,7 +280,7 @@ class GenericServiceImplTest {
     }
 
     /*
-     Given executeDeleteManyQuery(ids,queryName), deleteMany(ids,queryName)
+     Given executeDeleteManyQuery(ids), deleteMany(ids)
      Then  ServiceResponse
      Scenario SUCCESS
      */
@@ -296,14 +295,14 @@ class GenericServiceImplTest {
 
         Mockito.doNothing().when(jdbcRepository).executeDeleteManyQuery(ids, queryName);
 
-        ServiceResponse<?> serviceResponse = genericService.deleteMany(ids, queryName);
+        ServiceResponse<Void> serviceResponse = genericService.deleteMany(ids);
         serviceResponse.setHttpStatus(HttpStatus.OK);
 
         assertEquals(HttpStatus.OK, serviceResponse.getHttpStatus());
     }
 
     /*
-    Given executeDeleteManyQuery(ids,queryName), deleteMany(ids,queryName)
+    Given executeDeleteManyQuery(ids), deleteMany(ids)
     Then ServiceResponse
     Scenario INTERNAL_SERVER_ERROR
     */
@@ -313,7 +312,7 @@ class GenericServiceImplTest {
         Mockito.doThrow(new NullPointerException(""))
                 .when(jdbcRepository).executeDeleteManyQuery(Mockito.any(), Mockito.any());
 
-        ServiceResponse<?> serviceResponse = genericService.deleteMany(Mockito.any(), Mockito.any());
+        ServiceResponse<Void> serviceResponse = genericService.deleteMany(Mockito.any());
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, serviceResponse.getHttpStatus());
@@ -322,7 +321,7 @@ class GenericServiceImplTest {
 
 
     /*
-  Given updateMany(students,ids,queryName),executeUpdateManyQuery(students,ids,queryName)
+  Given updateMany(students,ids),executeUpdateManyQuery(students,ids)
   Then  ServiceResponse
   Scenario SUCCESS
   */
@@ -344,7 +343,7 @@ class GenericServiceImplTest {
 
         Mockito.doNothing().when(jdbcRepository).executeUpdateManyQuery(ids, queryName, student);
 
-        ServiceResponse<?> serviceResponse = genericService.updateMany(ids, queryName, student);
+        ServiceResponse<Void> serviceResponse = genericService.updateMany(ids, student);
         serviceResponse.setHttpStatus(HttpStatus.OK);
 
         assertEquals(HttpStatus.OK, serviceResponse.getHttpStatus());
@@ -352,7 +351,7 @@ class GenericServiceImplTest {
     }
 
     /*
-    Given updateMany(students,ids,queryName),executeUpdateManyQuery(students,ids,queryName)
+    Given updateMany(students,ids),executeUpdateManyQuery(students,ids)
     Then  ServiceResponse
     Scenario INTERNAL_SERVER_ERROR
     */
@@ -362,17 +361,17 @@ class GenericServiceImplTest {
         Mockito.doThrow(new NullPointerException(""))
                 .when(jdbcRepository).executeUpdateManyQuery(Mockito.any(), Mockito.any(), Mockito.any());
 
-        ServiceResponse<?> serviceResponse = genericService.updateMany(Mockito.any(), Mockito.any(), Mockito.any());
+        ServiceResponse<Void> serviceResponse = genericService.updateMany(Mockito.any(), Mockito.any());
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, serviceResponse.getHttpStatus());
     }
 
-   /*
-   Given executeAddManyQuery(students,queryName), addMany(students,queryName)
-   Then ServiceResponse
-   Scenario SUCCESS
-   */
+    /*
+    Given executeAddManyQuery(students), addMany(students)
+    Then ServiceResponse
+    Scenario SUCCESS
+    */
     @Test
     void addManyOK() {
 
@@ -388,9 +387,9 @@ class GenericServiceImplTest {
 
         String queryName = "addMany";
 
-        Mockito.doNothing().when(jdbcRepository).executeAddManyQuery(students,queryName);
+        Mockito.doNothing().when(jdbcRepository).executeAddManyQuery(students, queryName);
 
-        ServiceResponse<?> serviceResponse = genericService.addMany(students,queryName);
+        ServiceResponse<Void> serviceResponse = genericService.addMany(students);
         serviceResponse.setHttpStatus(HttpStatus.OK);
 
         assertEquals(HttpStatus.OK, serviceResponse.getHttpStatus());
@@ -398,7 +397,7 @@ class GenericServiceImplTest {
     }
 
     /*
-    Given executeAddManyQuery(students,queryName), addMany(students,queryName)
+    Given executeAddManyQuery(students), addMany(students)
     Then ServiceResponse
     Scenario INTERNAL_SERVER_ERROR
     */
@@ -406,9 +405,9 @@ class GenericServiceImplTest {
     void addManyInternalServerError() {
 
         Mockito.doThrow(new NullPointerException(""))
-                .when(jdbcRepository).executeAddQuery(Mockito.any(),Mockito.any());
+                .when(jdbcRepository).executeAddQuery(Mockito.any(), Mockito.any());
 
-        ServiceResponse<?> serviceResponse = genericService.addMany(Mockito.any(),Mockito.any());
+        ServiceResponse<Void> serviceResponse = genericService.addMany(Mockito.any());
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, serviceResponse.getHttpStatus());

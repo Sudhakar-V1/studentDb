@@ -3,7 +3,6 @@ package io.sudhakar.student.repository.mapper;
 import io.sudhakar.student.dto.Student;
 import org.springframework.jdbc.core.RowMapper;
 
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

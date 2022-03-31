@@ -122,7 +122,6 @@ public class JdbcRepository {
     }
 
 
-
     public void executeUpdateQuery(Student student, String queryName) {
 
         String sqlQuery = getQuery(queryName);
@@ -225,7 +224,7 @@ public class JdbcRepository {
             query = queries.getDeleteMany();
         } else if ("updateMany".equals(queryName)) {
             query = queries.getUpdateMany();
-        }else if ("addManyTask".equals(queryName)) {
+        } else if ("addManyTask".equals(queryName)) {
             query = queries.getAddManyTask();
         }
 

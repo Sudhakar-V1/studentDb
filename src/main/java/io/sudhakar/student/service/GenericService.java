@@ -7,20 +7,20 @@ import java.util.List;
 
 public interface GenericService {
 
-    ServiceResponse<List<Student>> getAllStudents(String queryName);
+    ServiceResponse<List<Student>> getAllStudents();
 
-    ServiceResponse<List<Student>> getStudent(int id, String queryName);
+    ServiceResponse<List<Student>> getStudent(int id);
 
-    ServiceResponse<?> addStudent(Student student, String queryName);
+    ServiceResponse<Void> addStudent(Student student);
 
-    ServiceResponse<?> updateStudent(Student student, String queryName);
+    ServiceResponse<Void> updateStudent(Student student, int id);
 
-    ServiceResponse<?> deleteStudent(int id, String queryName);
+    ServiceResponse<Void> deleteStudent(int id);
 
-    ServiceResponse<?> addMany(List<Student> students, String queryName);
+    ServiceResponse<Void> addMany(List<Student> students);
 
-    ServiceResponse<?> deleteMany(List<Integer> ids, String queryName);
+    ServiceResponse<Void> deleteMany(List<Integer> ids);
 
-    ServiceResponse<?> updateMany(List<Integer> ids, String queryName, Student student);
+    ServiceResponse<Void> updateMany(List<Integer> ids, Student student);
 
 }

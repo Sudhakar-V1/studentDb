@@ -25,20 +25,20 @@ public class RowMapperController {
     }
 
     @GetMapping
-    public ResponseEntity<StudentResponse<List<Student>>> getAllStudents(@RequestParam("queries") String queryName) {
+    public ResponseEntity<StudentResponse<List<Student>>> getAllStudents() {
         log.info("api = /rowMapper, method = GET, result = IN_PROGRESS");
 
-        ServiceResponse<List<Student>> serviceResponse = rowMapperService.getAllStudents(queryName);
+        ServiceResponse<List<Student>> serviceResponse = rowMapperService.getAllStudents();
 
         log.info("api = /rowMapper, method = GET, result = SUCCESS");
         return ResponseEntity.status(serviceResponse.getHttpStatus()).body(new StudentResponse<>(serviceResponse.getData()));
     }
 
     @GetMapping("/id")
-    public ResponseEntity<StudentResponse<List<Student>>> getStudent(@RequestParam("id") int id, @RequestParam("queries") String queryName) {
+    public ResponseEntity<StudentResponse<List<Student>>> getStudent(@RequestParam("id") int id) {
         log.info("api = /rowMapper/{id}, method = GET, result = IN_PROGRESS");
 
-        ServiceResponse<List<Student>> serviceResponse = rowMapperService.getStudent(id, queryName);
+        ServiceResponse<List<Student>> serviceResponse = rowMapperService.getStudent(id);
 
         log.info("api = /rowMapper/{id}, method = GET, result = SUCCESS");
         return ResponseEntity.status(serviceResponse.getHttpStatus()).body(new StudentResponse<>(serviceResponse.getData()));

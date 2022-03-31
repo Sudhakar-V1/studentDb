@@ -8,7 +8,5 @@ import java.io.Serializable;
 @Getter
 @AllArgsConstructor
 public class AuthenticationResponse implements Serializable {
-
     private final String jwt;
-
 }

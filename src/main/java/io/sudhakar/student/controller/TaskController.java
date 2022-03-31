@@ -34,7 +34,7 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StudentResponse<List<Task>>> getTask(@PathVariable int id) {
+    public ResponseEntity<StudentResponse<List<Task>>> getTask(@PathVariable("id") int id) {
         User user = userUtil.getLoginUser();
         log.info("api = /task{id}, method = GET, result = IN_Progress, userId = {}", user.getUserId());
 
@@ -57,7 +57,7 @@ public class TaskController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateTask(@PathVariable int id, @RequestBody Task task) {
+    public ResponseEntity<Void> updateTask(@PathVariable("id") int id, @RequestBody Task task) {
         User user = userUtil.getLoginUser();
         log.info("api = /task{id}, method = PUT, result = IN_Progress, userId = {}", user.getUserId());
 
@@ -68,7 +68,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTask(@PathVariable int id) {
+    public ResponseEntity<Void> deleteTask(@PathVariable("id") int id) {
         User user = userUtil.getLoginUser();
         log.info("api = /task{id}, method = DELETE, result = IN_Progress, userId = {}", user.getUserId());
 

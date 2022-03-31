@@ -14,7 +14,6 @@ public class UserUtil {
     }
 
     public User getLoginUser(){
-
         return (User) servletContext.getAttribute("user");
     }
 }

@@ -2,7 +2,6 @@ package io.sudhakar.student.controller;
 
 import io.sudhakar.student.dto.*;
 import io.sudhakar.student.service.RowMapperService;
-import io.sudhakar.student.service.TaskService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -33,7 +32,7 @@ class RowMapperControllerTest {
 
     /*
     Given getAllStudents()
-    Then  ServiceResponse
+    Then  ResponseEntity<StudentResponse<List<Student>>>
     Scenario SUCCESS
     */
     @Test
@@ -62,9 +61,9 @@ class RowMapperControllerTest {
         serviceResponse.setHttpStatus(HttpStatus.OK);
         serviceResponse.setData(students);
 
-        Mockito.when(rowMapperService.getAllStudents(queryName)).thenReturn(serviceResponse);
+        Mockito.when(rowMapperService.getAllStudents()).thenReturn(serviceResponse);
 
-        ResponseEntity<StudentResponse<List<Student>>> responseEntity = rowMapperController.getAllStudents(queryName);
+        ResponseEntity<StudentResponse<List<Student>>> responseEntity = rowMapperController.getAllStudents();
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
         assertEquals("arr", (responseEntity.getBody()).getData().get(0).getName());
@@ -76,7 +75,7 @@ class RowMapperControllerTest {
 
     /*
     Given getAllStudents()
-    Then  ServiceResponse
+    Then  ResponseEntity<StudentResponse<List<Student>>>
     Scenario ERROR (INTERNAL_SERVER_ERROR)
     */
     @Test
@@ -106,16 +105,16 @@ class RowMapperControllerTest {
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
         serviceResponse.setData(students);
 
-        Mockito.when(rowMapperService.getAllStudents(queryName))
+        Mockito.when(rowMapperService.getAllStudents())
                 .thenReturn(serviceResponse);
 
-        ResponseEntity<StudentResponse<List<Student>>> responseEntity = rowMapperController.getAllStudents(queryName);
+        ResponseEntity<StudentResponse<List<Student>>> responseEntity = rowMapperController.getAllStudents();
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
     }
 
     /*
     Given getStudent()
-    Then  ServiceResponse
+    Then  ResponseEntity<StudentResponse<List<Student>>>
     Scenario SUCCESS
     */
     @Test
@@ -144,9 +143,9 @@ class RowMapperControllerTest {
         serviceResponse.setHttpStatus(HttpStatus.OK);
         serviceResponse.setData(students);
 
-        Mockito.when(rowMapperService.getStudent(1,queryName)).thenReturn(serviceResponse);
+        Mockito.when(rowMapperService.getStudent(1)).thenReturn(serviceResponse);
 
-        ResponseEntity<StudentResponse<List<Student>>> responseEntity = rowMapperController.getStudent(1,queryName);
+        ResponseEntity<StudentResponse<List<Student>>> responseEntity = rowMapperController.getStudent(1);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
         assertEquals("arr", (responseEntity.getBody()).getData().get(0).getName());
@@ -158,7 +157,7 @@ class RowMapperControllerTest {
 
     /*
     Given getAllStudents()
-    Then  ServiceResponse
+    Then  ResponseEntity<StudentResponse<List<Student>>>
     Scenario ERROR (INTERNAL_SERVER_ERROR)
     */
     @Test
@@ -187,9 +186,9 @@ class RowMapperControllerTest {
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
         serviceResponse.setData(students);
 
-        Mockito.when(rowMapperService.getAllStudents(queryName)).thenReturn(serviceResponse);
+        Mockito.when(rowMapperService.getAllStudents()).thenReturn(serviceResponse);
 
-        ResponseEntity<StudentResponse<List<Student>>> responseEntity = rowMapperController.getAllStudents(queryName);
+        ResponseEntity<StudentResponse<List<Student>>> responseEntity = rowMapperController.getAllStudents();
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
     }
 }

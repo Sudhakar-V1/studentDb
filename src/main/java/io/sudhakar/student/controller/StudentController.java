@@ -39,7 +39,7 @@ public class StudentController {
 
     @GetMapping("/{id}")
 
-    public ResponseEntity<StudentResponse<Student>> getStudent(@PathVariable int id) {
+    public ResponseEntity<StudentResponse<Student>> getStudent(@PathVariable("id") int id) {
         log.info("api = /student{id}, method = GET , result = IN_Progress");
 
         ServiceResponse<Student> serviceResponse = studentService.getStudent(id);
@@ -49,10 +49,10 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addStudent(@RequestBody Student student) {
+    public ResponseEntity<Void> addStudent(@RequestBody Student student) {
         log.info("api = /student, method = POST , result = IN_Progress");
 
-        ServiceResponse<?> serviceResponse = studentService.addStudent(student);
+        ServiceResponse<Void> serviceResponse = studentService.addStudent(student);
 
         log.info("api = /student, method = POST , result = SUCCESS");
         return ResponseEntity.status(serviceResponse.getHttpStatus()).build();
@@ -60,20 +60,20 @@ public class StudentController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateStudent(@PathVariable int id, @RequestBody Student student) {
+    public ResponseEntity<Void> updateStudent(@PathVariable("id") int id, @RequestBody Student student) {
         log.info("api = /student{id}, method = PUT , result = IN_Progress");
 
-        ServiceResponse<?> serviceResponse = studentService.updateStudent(id, student);
+        ServiceResponse<Void> serviceResponse = studentService.updateStudent(id, student);
 
         log.info("api = /student{id},method = PUT, result = SUCCESS");
         return ResponseEntity.status(serviceResponse.getHttpStatus()).build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteStudent(@PathVariable int id) {
+    public ResponseEntity<Void> deleteStudent(@PathVariable("id") int id) {
         log.info("api = /student{id}, method = DELETE , result = IN_Progress");
 
-        ServiceResponse<?> serviceResponse = studentService.deleteStudent(id);
+        ServiceResponse<Void> serviceResponse = studentService.deleteStudent(id);
         log.info("api = /student{id},method = DELETE, result = SUCCESS");
 
         return ResponseEntity.status(serviceResponse.getHttpStatus()).build();
