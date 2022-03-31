@@ -3,6 +3,8 @@ package io.sudhakar.student.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Employee {
+
+    @JsonProperty("id")
     private long id;
 
     @JsonProperty("employee_name")

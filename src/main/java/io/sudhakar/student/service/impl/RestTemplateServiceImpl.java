@@ -22,18 +22,17 @@ public class RestTemplateServiceImpl implements RestTemplateService {
 
     public ServiceResponse<EmployeeGetAll> getAllEmployee(String urlName) {
         ServiceResponse<EmployeeGetAll> serviceResponse = new ServiceResponse<>();
-
         try {
-            log.error("method = getAll, status = IN_PROCESS");
+            log.info("operation = getAllEmployee, status = IN_PROCESS");
 
-            EmployeeGetAll employeeResponse = restTemplateUtil.getAll(urlName, EmployeeGetAll.class);
+            EmployeeGetAll employeeResponse = restTemplateUtil.get(urlName, EmployeeGetAll.class);
 
-            log.error("method = getAll, status = Success");
+            log.info("operation = getAllEmployee, status = SUCCESS");
             serviceResponse.setHttpStatus(HttpStatus.OK);
             serviceResponse.setData(employeeResponse);
             return serviceResponse;
         } catch (Exception e) {
-            log.error("method = getAll, status = ERROR");
+            log.error("operation = getAllEmployee, status = ERROR",e);
             serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return serviceResponse;
@@ -42,17 +41,16 @@ public class RestTemplateServiceImpl implements RestTemplateService {
     public ServiceResponse<EmployeeResponse> getEmployeeById(String urlName, int id) {
         ServiceResponse<EmployeeResponse> serviceResponse = new ServiceResponse<>();
         try {
-            log.error("method = get, status = IN_PROCESS");
+            log.info("operation = getEmployeeById, status = IN_PROCESS");
 
-            EmployeeResponse employeeResponse = restTemplateUtil.getById(urlName, EmployeeResponse.class, id);
+            EmployeeResponse employeeResponse = restTemplateUtil.get(urlName, EmployeeResponse.class, id);
 
-            log.error("method = getAll, status = Success");
+            log.info("operation = getEmployeeById, status = SUCCESS");
             serviceResponse.setHttpStatus(HttpStatus.OK);
             serviceResponse.setData(employeeResponse);
-
             return serviceResponse;
         } catch (Exception e) {
-            log.error("method = get, status = ERROR");
+            log.error("operation = getEmployeeById, status = ERROR",e);
             serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return serviceResponse;
@@ -60,18 +58,17 @@ public class RestTemplateServiceImpl implements RestTemplateService {
 
     public ServiceResponse<EmployeeResponse> addEmployee(String urlName, Employee employee) {
         ServiceResponse<EmployeeResponse> serviceResponse = new ServiceResponse<>();
-
         try {
-            log.error("method = add, status = IN_PROCESS");
+            log.info("operation = addEmployee, status = IN_PROCESS");
 
-            EmployeeResponse employeeResponse = restTemplateUtil.add(urlName, employee, EmployeeResponse.class);
+            EmployeeResponse employeeResponse = restTemplateUtil.post(urlName, employee, EmployeeResponse.class);
 
-            log.error("method = add, status = Success");
+            log.info("operation = addEmployee, status = SUCCESS");
             serviceResponse.setHttpStatus(HttpStatus.OK);
             serviceResponse.setData(employeeResponse);
             return serviceResponse;
         } catch (Exception e) {
-            log.error("method = add, status = ERROR");
+            log.error("operation = addEmployee, status = ERROR",e);
             serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return serviceResponse;
@@ -79,18 +76,17 @@ public class RestTemplateServiceImpl implements RestTemplateService {
 
     public ServiceResponse<Void> updateEmployee(String urlName, Employee employee, int id) {
         ServiceResponse<Void> serviceResponse = new ServiceResponse<>();
-
         try {
-            log.error("method = add, status = IN_PROCESS");
+            log.info("operation = updateEmployee, status = IN_PROCESS");
 
-            restTemplateUtil.update(urlName, employee, id);
+            restTemplateUtil.put(urlName, employee, id);
 
-            log.error("method = add, status = Success");
+            log.info("operation = updateEmployee, status = SUCCESS");
             serviceResponse.setHttpStatus(HttpStatus.OK);
 
             return serviceResponse;
         } catch (Exception e) {
-            log.error("method = add, status = ERROR");
+            log.error("operation = updateEmployee, status = ERROR",e);
             serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return serviceResponse;
@@ -98,21 +94,19 @@ public class RestTemplateServiceImpl implements RestTemplateService {
 
     public ServiceResponse<Void> deleteEmployee(String urlName, int id) {
         ServiceResponse<Void> serviceResponse = new ServiceResponse<>();
-
         try {
-            log.error("method = delete, status = IN_PROCESS");
+            log.info("operation = deleteEmployee, status = IN_PROCESS");
 
             restTemplateUtil.delete(urlName, id);
 
-            log.error("method = delete, status = Success");
+            log.info("operation = deleteEmployee, status = Success");
             serviceResponse.setHttpStatus(HttpStatus.OK);
 
             return serviceResponse;
         } catch (Exception e) {
-            log.error("method = delete, status = ERROR");
+            log.error("operation = deleteEmployee, status = ERROR",e);
             serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return serviceResponse;
     }
-
 }

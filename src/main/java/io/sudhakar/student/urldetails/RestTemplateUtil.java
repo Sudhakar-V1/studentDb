@@ -20,7 +20,7 @@ public class RestTemplateUtil {
         this.urlClass = urlClass;
     }
 
-    public <T> T getAll(String urlName, Class<T> responseType) {
+    public <T> T get(String urlName, Class<T> responseType) {
 
         String resourceUrl = getUrl(urlName);
 
@@ -29,8 +29,7 @@ public class RestTemplateUtil {
         return responseEntity.getBody();
     }
 
-
-    public <T> T getById(String urlName, Class<T> responseType, int id) {
+    public <T> T get(String urlName, Class<T> responseType, int id) {
 
         String resourceUrl = getUrl(urlName);
 
@@ -40,7 +39,7 @@ public class RestTemplateUtil {
     }
 
 
-    public <T> T add(String urlName, Employee employee, Class<T> responseType) {
+    public <T> T post(String urlName, Employee employee, Class<T> responseType) {
 
         String resourceUrl = getUrl(urlName);
 
@@ -56,7 +55,7 @@ public class RestTemplateUtil {
         restTemplate.delete(resourceUrl + id);
     }
 
-    public void update(String urlName, Employee employee, int id) {
+    public void put(String urlName, Employee employee, int id) {
 
         String resourceUrl = getUrl(urlName);
 

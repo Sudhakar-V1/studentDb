@@ -25,6 +25,5 @@ public class UrlClass {
         this.update = update;
         this.delete = delete;
     }
-
 }
 
