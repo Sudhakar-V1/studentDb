@@ -21,7 +21,6 @@ public class GenericQueryController {
         this.genericService = genericService;
     }
 
-
     @GetMapping
     public ResponseEntity<StudentResponse<List<Student>>> getAllStudents(@RequestParam("queries") String queryName) {
         log.info("api = /genericQuery, method = GET, result = IN_PROGRESS");

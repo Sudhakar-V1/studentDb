@@ -49,7 +49,7 @@ public class StudentServiceImpl implements StudentService {
                             return address;
                         })
                         .collect(Collectors.toSet());
-                student.setAddresses(addresses); //
+                student.setAddresses(addresses);
                 students.add(student);
             }
 
@@ -206,7 +206,7 @@ public class StudentServiceImpl implements StudentService {
                             return address;
                         })
                         .collect(Collectors.toSet());
-                student.setAddresses(addresses); //
+                student.setAddresses(addresses);
                 students.add(student);
             }
 

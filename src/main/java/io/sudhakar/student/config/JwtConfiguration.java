@@ -30,7 +30,6 @@ public class JwtConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
-
     }
 
     @Override
@@ -52,5 +51,7 @@ public class JwtConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+
+//        return NoOpPasswordEncoder.getInstance();
     }
 }

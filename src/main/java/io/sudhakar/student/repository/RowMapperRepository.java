@@ -2,6 +2,7 @@ package io.sudhakar.student.repository;
 
 import io.sudhakar.student.repository.queryDetails.Queries;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
