@@ -64,7 +64,7 @@ class RowMapperServiceImplTest {
         Mockito.doReturn(studentEntities)
                 .when(rowMapperRepository).executeGetAllQuery(null, queryName, new StudentMapper());
 
-        ServiceResponse<List<Student>> serviceResponse = rowMapperService.getAllStudents(queryName);
+        ServiceResponse<List<Student>> serviceResponse = rowMapperService.getAllStudents();
         serviceResponse.setHttpStatus(HttpStatus.OK);
 
         assertEquals(HttpStatus.OK, serviceResponse.getHttpStatus());
@@ -84,7 +84,7 @@ class RowMapperServiceImplTest {
         Mockito.doThrow(new NullPointerException(""))
                 .when(rowMapperRepository).executeGetAllQuery(null, queryName, new StudentMapper());
 
-        ServiceResponse<List<Student>> serviceResponse = rowMapperService.getAllStudents(queryName);
+        ServiceResponse<List<Student>> serviceResponse = rowMapperService.getAllStudents();
 
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, serviceResponse.getHttpStatus());
@@ -120,7 +120,7 @@ class RowMapperServiceImplTest {
         Mockito.doReturn(studentEntities)
                 .when(rowMapperRepository).executeGetQuery(1, queryName, new StudentMapper());
 
-        ServiceResponse<List<Student>> serviceResponse = rowMapperService.getStudent(1, queryName);
+        ServiceResponse<List<Student>> serviceResponse = rowMapperService.getStudent(1);
 
         serviceResponse.setHttpStatus(HttpStatus.OK);
         assertEquals(HttpStatus.OK, serviceResponse.getHttpStatus());
@@ -139,7 +139,7 @@ class RowMapperServiceImplTest {
         Mockito.doThrow(new NullPointerException(""))
                 .when(rowMapperRepository).executeGetQuery(1, queryName, new StudentMapper());
 
-        ServiceResponse<List<Student>> serviceResponse = rowMapperService.getStudent(1, queryName);
+        ServiceResponse<List<Student>> serviceResponse = rowMapperService.getStudent(1);
 
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, serviceResponse.getHttpStatus());

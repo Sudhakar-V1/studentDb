@@ -2,8 +2,7 @@ package io.sudhakar.student.entity;
 
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 
@@ -13,7 +12,6 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Slf4j
 
 @Table(name = "user", schema = "public")
@@ -30,8 +28,7 @@ public class UserDetailsEntity {
     @Column(name = "password")
     private String password;
 
-//    @OneToOne(orphanRemoval = true, mappedBy = "userDetailsEntity", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @LazyCollection(LazyCollectionOption.TRUE)
-//    private TaskEntity taskEntity;
-
+    public void setPassword(String password) {
+        this.password = new BCryptPasswordEncoder().encode(password);
+    }
 }

@@ -12,15 +12,12 @@ import java.util.Optional;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
-
     private final UserDetailsRepository userDetailsRepository;
 
     public JwtUserDetailsService(UserDetailsRepository userDetailsRepository) {
 
         this.userDetailsRepository = userDetailsRepository;
-
     }
-
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
 

@@ -39,7 +39,7 @@ class TaskControllerTest {
 
     /*
     Given getAllTask()
-    Then  ServiceResponse
+    Then  ResponseEntity<StudentResponse<List<Task>>>
     Scenario OK
     */
     @Test
@@ -75,7 +75,7 @@ class TaskControllerTest {
 
     /*
     Given getAllTask()
-    Then  ServiceResponse
+    Then  ResponseEntity<StudentResponse<List<Task>>>
     Scenario ERROR (INTERNAL_SERVER_ERROR)
     */
     @Test
@@ -108,7 +108,7 @@ class TaskControllerTest {
 
     /*
     Given getTask()
-    Then  ServiceResponse
+    Then  ResponseEntity<StudentResponse<List<Task>>>
     Scenario SUCCESS
     */
     @Test
@@ -141,7 +141,7 @@ class TaskControllerTest {
 
     /*
     Given getTask()
-    Then  ServiceResponse
+    Then  ResponseEntity<StudentResponse<List<Task>>>
     Scenario ERROR (INTERNAL_SERVER_ERROR)
     */
     @Test
@@ -174,7 +174,7 @@ class TaskControllerTest {
 
     /*
     Given addTask()
-    Then  ServiceResponse
+    Then  ServiceResponse<Void>
     Scenario SUCCESS
     */
     @Test
@@ -204,7 +204,7 @@ class TaskControllerTest {
 
     /*
     Given addTask()
-    Then  ServiceResponse
+    Then  ServiceResponse<Void>
     Scenario ERROR (INTERNAL_SERVER_ERROR)
     */
     @Test
@@ -233,7 +233,7 @@ class TaskControllerTest {
 
     /*
     Given updateTask()
-    Then  ServiceResponse
+    Then  ServiceResponse<Void>
     Scenario SUCCESS
     */
     @Test
@@ -262,7 +262,7 @@ class TaskControllerTest {
 
     /*
     Given updateTask()
-    Then  ServiceResponse
+    Then  ServiceResponse<Void>
     Scenario ERROR (INTERNAL_SERVER_ERROR)
     */
     @Test
@@ -291,7 +291,7 @@ class TaskControllerTest {
 
     /*
     Given deleteTask()
-    Then  ServiceResponse
+    Then  ServiceResponse<Void>
     Scenario SUCCESS
     */
     @Test
@@ -314,7 +314,7 @@ class TaskControllerTest {
 
     /*
     Given deleteTask()
-    Then  ServiceResponse
+    Then  ServiceResponse<Void>
     Scenario ERROR (INTERNAL_SERVER_ERROR)
     */
     @Test
@@ -337,7 +337,7 @@ class TaskControllerTest {
 
     /*
     Given addManyTask()
-    Then  ServiceResponse
+    Then  ServiceResponse<Void>
     Scenario SUCCESS
     */
     @Test
@@ -369,7 +369,7 @@ class TaskControllerTest {
 
     /*
     Given addManyTask()
-    Then  ServiceResponse
+    Then  ServiceResponse<Void>
     Scenario ERROR (INTERNAL_SERVER_ERROR)
     */
     @Test
@@ -400,8 +400,8 @@ class TaskControllerTest {
     }
 
     /*
-    Given addManyTask()
-    Then  ServiceResponse
+    Given updateManyTask()
+    Then  ServiceResponse<Void>
     Scenario SUCCESS
     */
     @Test
@@ -433,7 +433,7 @@ class TaskControllerTest {
 
     /*
     Given updateManyTask()
-    Then  ServiceResponse
+    Then  ServiceResponse<Void>
     Scenario ERROR (INTERNAL_SERVER_ERROR)
     */
     @Test
@@ -465,7 +465,7 @@ class TaskControllerTest {
 
     /*
     Given deleteManyTask()
-    Then  ServiceResponse
+    Then  ServiceResponse<Void>
     Scenario SUCCESS
     */
     @Test
@@ -490,7 +490,7 @@ class TaskControllerTest {
 
     /*
     Given deleteManyTask()
-    Then  ServiceResponse
+    Then  ServiceResponse<Void>
     Scenario ERROR (INTERNAL_SERVER_ERROR)
     */
     @Test

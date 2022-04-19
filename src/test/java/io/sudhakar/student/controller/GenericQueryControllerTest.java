@@ -34,10 +34,10 @@ class GenericQueryControllerTest {
 
 
     /*
-    Given getAllStudents(queryName)
-    Then  ServiceResponse
+    Given getAllStudents()
+    Then  ResponseEntity<StudentResponse<List<Student>>>
     Scenario SUCCESS
-     */
+    */
 
     @Test
     void getAllStudentsOk() {
@@ -56,12 +56,10 @@ class GenericQueryControllerTest {
         serviceResponse.setHttpStatus(HttpStatus.OK);
         serviceResponse.setData(students);
 
-        String queryName = "findAll";
-
-        when(genericService.getAllStudents(queryName))
+        when(genericService.getAllStudents())
                 .thenReturn(serviceResponse);
 
-        ResponseEntity<StudentResponse<List<Student>>> responseEntity = genericQueryController.getAllStudents(queryName);
+        ResponseEntity<StudentResponse<List<Student>>> responseEntity = genericQueryController.getAllStudents();
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
@@ -69,12 +67,11 @@ class GenericQueryControllerTest {
         assertEquals("arr", (responseEntity.getBody()).getData().get(0).getName());
         assertEquals("java Script", (responseEntity.getBody()).getData().get(0).getCourse());
         assertEquals("pune", (responseEntity.getBody()).getData().get(0).getPlace());
-
     }
 
     /*
-    Given getAllStudents(queryName)
-    Then  ServiceResponse
+    Given getAllStudents()
+    Then  ResponseEntity<StudentResponse<List<Student>>>
     Scenario INTERNAL_SERVER_ERROR
     */
     @Test
@@ -83,18 +80,18 @@ class GenericQueryControllerTest {
         ServiceResponse<List<Student>> serviceResponse = new ServiceResponse<>();
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 
-        when(genericService.getAllStudents(Mockito.any()))
+        when(genericService.getAllStudents())
                 .thenReturn(serviceResponse);
 
-        ResponseEntity<StudentResponse<List<Student>>> responseEntity = genericQueryController.getAllStudents(Mockito.any());
+        ResponseEntity<StudentResponse<List<Student>>> responseEntity = genericQueryController.getAllStudents();
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
     }
 
     /*
-   Given addStudent(student,queryName)
-   Then  ServiceResponse
-   Scenario SUCCESS
+    Given addStudent(student)
+    Then  ResponseEntity<Void>
+    Scenario SUCCESS
     */
     @Test
     void addStudentOk() {
@@ -109,20 +106,17 @@ class GenericQueryControllerTest {
         ServiceResponse serviceResponse = new ServiceResponse<>();
         serviceResponse.setHttpStatus(HttpStatus.OK);
 
-        String queryName = "add";
-
-        Mockito.when(genericService.addStudent(student,queryName))
+        Mockito.when(genericService.addStudent(student))
                 .thenReturn(serviceResponse);
 
-        ResponseEntity<?> responseEntity = genericQueryController.addStudent(student,queryName);
+        ResponseEntity<Void> responseEntity = genericQueryController.addStudent(student);
 
         assertEquals(200, responseEntity.getStatusCodeValue());
-
     }
 
     /*
-    Given addStudent(student,queryName)
-    Then  ServiceResponse
+    Given addStudent(student)
+    Then  ResponseEntity<Void>
     Scenario INTERNAL_SERVER_ERROR
     */
 
@@ -132,17 +126,17 @@ class GenericQueryControllerTest {
         ServiceResponse serviceResponse = new ServiceResponse<>();
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 
-        Mockito.when(genericService.addStudent(Mockito.any(),Mockito.any()))
+        Mockito.when(genericService.addStudent(Mockito.any()))
                 .thenReturn(serviceResponse);
 
-        ResponseEntity<?> responseEntity = genericQueryController.addStudent(Mockito.any(),Mockito.any());
+        ResponseEntity<Void> responseEntity = genericQueryController.addStudent(Mockito.any());
         assertEquals(500, responseEntity.getStatusCodeValue());
 
     }
 
     /*
-    Given updateStudent(student,queryName)
-    Then  ServiceResponse
+    Given updateStudent(student)
+    Then  ResponseEntity<Void>
     Scenario SUCCESS
     */
     @Test
@@ -158,22 +152,20 @@ class GenericQueryControllerTest {
         serviceResponse.setHttpStatus(HttpStatus.OK);
         serviceResponse.setData(student);
 
-        String queryName = "update";
-
-        Mockito.when(genericService.updateStudent(student, queryName))
+        Mockito.when(genericService.updateStudent(student, 1))
                 .thenReturn(serviceResponse);
 
-        ResponseEntity<?> responseEntity = genericQueryController.updateStudent(student, queryName);
+        ResponseEntity<Void> responseEntity = genericQueryController.updateStudent(student, 1);
 
         assertEquals(200, responseEntity.getStatusCodeValue());
 
     }
 
     /*
-   Given updateStudent(student, queryName)
-   Then  ServiceResponse
-   Scenario INTERNAL_SERVER_ERROR
-   */
+    Given updateStudent(student)
+    Then  ResponseEntity<Void>
+    Scenario INTERNAL_SERVER_ERROR
+    */
     @Test
     void updateStudentInternalServerError() {
 
@@ -183,16 +175,16 @@ class GenericQueryControllerTest {
         Mockito.when(genericService.updateStudent(Mockito.any(), Mockito.any()))
                 .thenReturn(serviceResponse);
 
-        ResponseEntity<?> responseEntity = genericQueryController.updateStudent(Mockito.any(), Mockito.any());
+        ResponseEntity<Void> responseEntity = genericQueryController.updateStudent(Mockito.any(), Mockito.any());
 
         assertEquals(500, responseEntity.getStatusCodeValue());
     }
 
-  /*
-  Given deleteStudent(id,queryName)
-  Then  ServiceResponse
-  Scenario SUCCESS
-  */
+    /*
+    Given deleteStudent(id)
+    Then  ResponseEntity<Void>
+    Scenario SUCCESS
+    */
     @Test
     void deleteStudentOk() {
 
@@ -206,19 +198,17 @@ class GenericQueryControllerTest {
         ServiceResponse serviceResponse = new ServiceResponse<>();
         serviceResponse.setHttpStatus(HttpStatus.OK);
 
-        String queryName = "delete";
-
-        when(genericService.deleteStudent(1,queryName))
+        when(genericService.deleteStudent(1))
                 .thenReturn(serviceResponse);
 
-        ResponseEntity<?> responseEntity = genericQueryController.deleteStudent(1,queryName);
+        ResponseEntity<Void> responseEntity = genericQueryController.deleteStudent(1);
         assertEquals(200, responseEntity.getStatusCodeValue());
 
     }
 
     /*
-    Given deleteStudent(id,queryName)
-    Then  ServiceResponse
+    Given deleteStudent(id)
+    Then  ResponseEntity<Void>
     Scenario INTERNAL_SERVER_ERROR
     */
     @Test
@@ -227,21 +217,19 @@ class GenericQueryControllerTest {
         ServiceResponse serviceResponse = new ServiceResponse<>();
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 
-        String queryName = "delete";
-
-        when(genericService.deleteStudent(1,queryName))
+        when(genericService.deleteStudent(1))
                 .thenReturn(serviceResponse);
 
-        ResponseEntity<?> responseEntity = genericQueryController.deleteStudent(1,queryName);
+        ResponseEntity<Void> responseEntity = genericQueryController.deleteStudent(1);
         assertEquals(500, responseEntity.getStatusCodeValue());
 
     }
 
     /*
-    Given getStudent(id,queryName)
-    Then  ServiceResponse
+    Given getStudent(id)
+    Then  ResponseEntity<StudentResponse<List<Student>>>
     Scenario SUCCESS
-     */
+    */
 
     @Test
     void getStudentOk() {
@@ -260,12 +248,10 @@ class GenericQueryControllerTest {
         serviceResponse.setHttpStatus(HttpStatus.OK);
         serviceResponse.setData(students);
 
-        String queryName = "findById";
-
-        when(genericService.getStudent (1,queryName))
+        when(genericService.getStudent(1))
                 .thenReturn(serviceResponse);
 
-        ResponseEntity<StudentResponse<List<Student>>> responseEntity = genericQueryController.getStudent(1,queryName);
+        ResponseEntity<StudentResponse<List<Student>>> responseEntity = genericQueryController.getStudent(1);
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
@@ -276,9 +262,9 @@ class GenericQueryControllerTest {
 
     }
 
-     /*
-    Given getStudent(id,queryName)
-    Then  ServiceResponse
+    /*
+    Given getStudent(id)
+    Then  ResponseEntity<StudentResponse<List<Student>>>
     Scenario INTERNAL_SERVER_ERROR
      */
 
@@ -288,20 +274,18 @@ class GenericQueryControllerTest {
         ServiceResponse<List<Student>> serviceResponse = new ServiceResponse<>();
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 
-        String queryName = "findById";
-
-        when(genericService.getStudent (1,queryName))
+        when(genericService.getStudent(1))
                 .thenReturn(serviceResponse);
 
-        ResponseEntity<StudentResponse<List<Student>>> responseEntity = genericQueryController.getStudent(1,queryName);
+        ResponseEntity<StudentResponse<List<Student>>> responseEntity = genericQueryController.getStudent(1);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
 
     }
 
     /*
-    Given deleteMany(ids,queryName)
-    Then  ServiceResponse
+    Given deleteMany(ids)
+    Then  ResponseEntity<Void>
     Scenario SUCCESS
     */
     @Test
@@ -311,39 +295,37 @@ class GenericQueryControllerTest {
         ids.add(1);
         ids.add(2);
 
-        ServiceResponse<?> serviceResponse = new ServiceResponse<>();
+        ServiceResponse<Void> serviceResponse = new ServiceResponse<>();
         serviceResponse.setHttpStatus(HttpStatus.OK);
 
-        String queryName = "deleteMany";
+        Mockito.doReturn(serviceResponse).when(genericService).deleteMany(ids);
 
-        Mockito.doReturn(serviceResponse).when(genericService).deleteMany(ids, queryName);
-
-        ResponseEntity<?> responseEntity = genericQueryController.deleteMany(ids, queryName);
+        ResponseEntity<Void> responseEntity = genericQueryController.deleteMany(ids);
         assertEquals(200, responseEntity.getStatusCodeValue());
     }
 
     /*
-   Given deleteMany(ids,queryName)
-   Then  ServiceResponse
-   Scenario INTERNAL_SERVER_ERROR
-   */
+    Given deleteMany(ids)
+    Then  ResponseEntity<Void>
+    Scenario INTERNAL_SERVER_ERROR
+    */
     @Test
     void deleteManyInternalServerError() {
 
-        ServiceResponse<?> serviceResponse = new ServiceResponse<>();
+        ServiceResponse<Void> serviceResponse = new ServiceResponse<>();
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 
-        Mockito.doReturn(serviceResponse).when(genericService).deleteMany(Mockito.any(), Mockito.any());
+        Mockito.doReturn(serviceResponse).when(genericService).deleteMany(Mockito.any());
 
-        ResponseEntity<?> responseEntity = genericQueryController.deleteMany(Mockito.any(), Mockito.any());
+        ResponseEntity<Void> responseEntity = genericQueryController.deleteMany(Mockito.any());
         assertEquals(500, responseEntity.getStatusCodeValue());
     }
 
     /*
-   Given updateMany(students,ids,queryName)
-   Then  ServiceResponse
-   Scenario SUCCESS
-   */
+    Given updateMany(students,ids)
+    Then  ResponseEntity<Void>
+    Scenario SUCCESS
+    */
     @Test
     void updateManyOk() {
 
@@ -358,41 +340,38 @@ class GenericQueryControllerTest {
         student.setCourse("java Script");
         student.setPlace("pune");
 
-        ServiceResponse<?> serviceResponse = new ServiceResponse<>();
+        ServiceResponse<Void> serviceResponse = new ServiceResponse<>();
         serviceResponse.setHttpStatus(HttpStatus.OK);
 
-        String queryName = "updateMany";
+        Mockito.doReturn(serviceResponse).when(genericService).updateMany(ids, student);
 
-        Mockito.doReturn(serviceResponse).when(genericService).updateMany(ids, queryName,student);
-
-        ResponseEntity<?> responseEntity = genericQueryController.updateMany(ids, queryName,student);
+        ResponseEntity<Void> responseEntity = genericQueryController.updateMany(ids, student);
         assertEquals(200, responseEntity.getStatusCodeValue());
     }
 
     /*
-    Given updateMany(students,ids,queryName)
-    Then  ServiceResponse
+    Given updateMany(students,ids)
+    Then  ResponseEntity<Void>
     Scenario INTERNAL_SERVER_ERROR
     */
     @Test
     void updateManyInternalServerError() {
 
-        ServiceResponse<?> serviceResponse = new ServiceResponse<>();
+        ServiceResponse<Void> serviceResponse = new ServiceResponse<>();
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 
-        Mockito.doReturn(serviceResponse).when(genericService).updateMany(Mockito.any(), Mockito.any(),Mockito.any());
+        Mockito.doReturn(serviceResponse).when(genericService).updateMany(Mockito.any(), Mockito.any());
 
-        ResponseEntity<?> responseEntity = genericQueryController.updateMany(Mockito.any(), Mockito.any(),Mockito.any());
+        ResponseEntity<Void> responseEntity = genericQueryController.updateMany(Mockito.any(), Mockito.any());
         assertEquals(500, responseEntity.getStatusCodeValue());
     }
 
 
-
     /*
-   Given addMany(students,queryName)
-   Then  ServiceResponse
-   Scenario SUCCESS
-   */
+    Given addMany(students)
+    Then  ResponseEntity<Void>
+    Scenario SUCCESS
+    */
     @Test
     void addManyOk() {
 
@@ -406,21 +385,19 @@ class GenericQueryControllerTest {
         List<Student> students = new ArrayList<>();
         students.add(student);
 
-        ServiceResponse<?> serviceResponse = new ServiceResponse<>();
+        ServiceResponse<Void> serviceResponse = new ServiceResponse<>();
         serviceResponse.setHttpStatus(HttpStatus.OK);
 
-        String queryName = "addMany";
+        Mockito.doReturn(serviceResponse).when(genericService).addMany(students);
 
-        Mockito.doReturn(serviceResponse).when(genericService).addMany(students,queryName);
-
-        ResponseEntity<?> responseEntity = genericQueryController.addMany(students,queryName);
+        ResponseEntity<Void> responseEntity = genericQueryController.addMany(students);
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
     }
 
     /*
-    Given addMany(students,queryName)
-    Then  ServiceResponse
+    Given addMany(students)
+    Then  ResponseEntity<Void>
     Scenario INTERNAL_SERVER_ERROR
     */
 
@@ -430,14 +407,12 @@ class GenericQueryControllerTest {
         ServiceResponse serviceResponse = new ServiceResponse<>();
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 
-        Mockito.when(genericService.addMany(Mockito.any(),Mockito.any()))
+        Mockito.when(genericService.addMany(Mockito.any()))
                 .thenReturn(serviceResponse);
 
-        ResponseEntity<?> responseEntity = genericQueryController.addMany(Mockito.any(),Mockito.any());
+        ResponseEntity<Void> responseEntity = genericQueryController.addMany(Mockito.any());
         assertEquals(500, responseEntity.getStatusCodeValue());
 
     }
-
-
 
 }

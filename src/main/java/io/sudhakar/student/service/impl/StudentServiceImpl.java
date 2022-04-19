@@ -49,7 +49,7 @@ public class StudentServiceImpl implements StudentService {
                             return address;
                         })
                         .collect(Collectors.toSet());
-                student.setAddresses(addresses); //
+                student.setAddresses(addresses);
                 students.add(student);
             }
 
@@ -97,10 +97,10 @@ public class StudentServiceImpl implements StudentService {
         return serviceResponse;
     }
 
-    public ServiceResponse<?> addStudent(Student student) {
+    public ServiceResponse<Void> addStudent(Student student) {
         log.info("operation = addStudent, result = IN_PROGRESS");
 
-        ServiceResponse<?> serviceResponse = new ServiceResponse<>();
+        ServiceResponse<Void> serviceResponse = new ServiceResponse<>();
 
         try {
             StudentEntity studentEntity = new StudentEntity();
@@ -127,10 +127,10 @@ public class StudentServiceImpl implements StudentService {
         return serviceResponse;
     }
 
-    public ServiceResponse<?> updateStudent(int id, Student student) {
+    public ServiceResponse<Void> updateStudent(int id, Student student) {
 
 
-        ServiceResponse<?> serviceResponse = new ServiceResponse<>();
+        ServiceResponse<Void> serviceResponse = new ServiceResponse<>();
 
         try {
             log.info("operation = updateStudent, result = IN_PROGRESS");
@@ -165,9 +165,9 @@ public class StudentServiceImpl implements StudentService {
         return serviceResponse;
     }
 
-    public ServiceResponse<?> deleteStudent(int id) {
+    public ServiceResponse<Void> deleteStudent(int id) {
 
-        ServiceResponse<?> serviceResponse = new ServiceResponse<>();
+        ServiceResponse<Void> serviceResponse = new ServiceResponse<>();
 
         try {
             log.info("operation = deleteStudent, result = IN_PROGRESS");
@@ -206,7 +206,7 @@ public class StudentServiceImpl implements StudentService {
                             return address;
                         })
                         .collect(Collectors.toSet());
-                student.setAddresses(addresses); //
+                student.setAddresses(addresses);
                 students.add(student);
             }
 

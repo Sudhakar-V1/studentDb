@@ -37,7 +37,7 @@ class StudentControllerTest {
 
     /*
     Given getAllStudents()
-    Then  ServiceResponse
+    Then  ResponseEntity<StudentResponse<List<Student>>>
     Scenario SUCCESS
     */
     @Test
@@ -114,7 +114,7 @@ class StudentControllerTest {
 
     /*
     Given getAllStudents()
-    Then  ServiceResponse
+    Then  ResponseEntity<StudentResponse<List<Student>>>
     Scenario ERROR (INTERNAL_SERVER_ERROR)
     */
     @Test
@@ -170,7 +170,7 @@ class StudentControllerTest {
 
     /*
     Given getStudent()
-    Then  ServiceResponse
+    Then  ResponseEntity<StudentResponse<Student>>
     Scenario SUCCESS
     */
 
@@ -219,7 +219,7 @@ class StudentControllerTest {
 
     /*
     Given getStudent()
-    Then  ServiceResponse
+    Then  ResponseEntity<StudentResponse<Student>>
     Scenario ERROR (INTERNAL_SERVER_ERROR)
     */
     @Test
@@ -253,10 +253,10 @@ class StudentControllerTest {
     }
 
     /*
-   Given addStudent()
-   Then  ServiceResponse
-   Scenario SUCCESS
-   */
+    Given addStudent()
+    Then  ResponseEntity<Void>
+    Scenario SUCCESS
+    */
     @Test
     void addStudentOk() {
 
@@ -281,14 +281,14 @@ class StudentControllerTest {
         when(studentService.addStudent(student))
                 .thenReturn(serviceResponse);
 
-        ResponseEntity<?> responseEntity = studentController.addStudent(student);
+        ResponseEntity<Void> responseEntity = studentController.addStudent(student);
 
         assertEquals(200, responseEntity.getStatusCodeValue());
     }
 
     /*
     Given addStudent()
-    Then  ServiceResponse
+    Then  ResponseEntity<Void>
     Scenario ERROR (INTERNAL_SERVER_ERROR)
     */
     @Test
@@ -315,14 +315,14 @@ class StudentControllerTest {
         when(studentService.addStudent(student))
                 .thenReturn(serviceResponse);
 
-        ResponseEntity<?> responseEntity = studentController.addStudent(student);
+        ResponseEntity<Void> responseEntity = studentController.addStudent(student);
         assertEquals(500, responseEntity.getStatusCodeValue());
     }
 
 
     /*
     Given updateStudent()
-    Then  ServiceResponse
+    Then  ResponseEntity<Void>
     Scenario SUCCESS
     */
     @Test
@@ -350,7 +350,7 @@ class StudentControllerTest {
         when(studentService.updateStudent(1, student))
                 .thenReturn(serviceResponse);
 
-        ResponseEntity<?> responseEntity = studentController.updateStudent(1, student);
+        ResponseEntity<Void> responseEntity = studentController.updateStudent(1, student);
 
         assertEquals(200, responseEntity.getStatusCodeValue());
     }
@@ -358,7 +358,7 @@ class StudentControllerTest {
 
     /*
     Given updateStudent()
-    Then  ServiceResponse
+    Then  ResponseEntity<Void>
     Scenario ERROR (INTERNAL_SERVER_ERROR)
     */
     @Test
@@ -386,7 +386,7 @@ class StudentControllerTest {
         when(studentService.updateStudent(1, student))
                 .thenReturn(serviceResponse);
 
-        ResponseEntity<?> responseEntity = studentController.updateStudent(1, student);
+        ResponseEntity<Void> responseEntity = studentController.updateStudent(1, student);
         assertEquals(500, responseEntity.getStatusCodeValue());
 
     }
@@ -394,7 +394,7 @@ class StudentControllerTest {
 
     /*
     Given deleteStudent()
-    Then  ServiceResponse
+    Then  ResponseEntity<Void>
     Scenario SUCCESS
     */
     @Test
@@ -421,13 +421,13 @@ class StudentControllerTest {
         when(studentService.deleteStudent(1))
                 .thenReturn(serviceResponse);
 
-        ResponseEntity<?> responseEntity = studentController.deleteStudent(1);
+        ResponseEntity<Void> responseEntity = studentController.deleteStudent(1);
         assertEquals(200, responseEntity.getStatusCodeValue());
     }
 
     /*
     Given deleteStudent()
-    Then  ServiceResponse
+    Then  ResponseEntity<Void>
     Scenario ERROR (INTERNAL_SERVER_ERROR)
     */
     @Test
@@ -440,15 +440,15 @@ class StudentControllerTest {
         when(studentService.deleteStudent(1))
                 .thenReturn(serviceResponse);
 
-        ResponseEntity<?> responseEntity = studentController.deleteStudent(1);
+        ResponseEntity<Void> responseEntity = studentController.deleteStudent(1);
         assertEquals(500, responseEntity.getStatusCodeValue());
     }
 
     /*
- Given getWithPaginationAndSorting(pageable)
- Then ServiceResponse
- Scenario SUCCESS
-  */
+    Given getWithPaginationAndSorting(pageable)
+    Then ResponseEntity<StudentResponse<Page<Student>>>
+    Scenario SUCCESS
+    */
     @Test
     void getWithPaginationAndSortingOk() {
 
@@ -499,39 +499,39 @@ class StudentControllerTest {
         when(studentService.getWithPaginationAndSorting(pageable))
                 .thenReturn(serviceResponse);
 
-        ResponseEntity<StudentResponse<Page<Student>>> ResponseEntity = studentController.getWithPaginationAndSorting(pageable);
+        ResponseEntity<StudentResponse<Page<Student>>> responseEntity = studentController.getWithPaginationAndSorting(pageable);
 
-        assertEquals(HttpStatus.OK, serviceResponse.getHttpStatus());
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
 
-        assertEquals(2, ResponseEntity.getBody().getData().getNumberOfElements());
+        assertEquals(2, responseEntity.getBody().getData().getNumberOfElements());
 
-        assertEquals(1, ResponseEntity.getBody().getData().getContent().get(0).getId());
-        assertEquals("arr", ResponseEntity.getBody().getData().getContent().get(0).getName());
-        assertEquals("java Script", ResponseEntity.getBody().getData().getContent().get(0).getCourse());
-        assertEquals("pune", ResponseEntity.getBody().getData().getContent().get(0).getPlace());
-        assertEquals(24, ResponseEntity.getBody().getData().getContent().get(0).getAge());
+        assertEquals(1, responseEntity.getBody().getData().getContent().get(0).getId());
+        assertEquals("arr", responseEntity.getBody().getData().getContent().get(0).getName());
+        assertEquals("java Script", responseEntity.getBody().getData().getContent().get(0).getCourse());
+        assertEquals("pune", responseEntity.getBody().getData().getContent().get(0).getPlace());
+        assertEquals(24, responseEntity.getBody().getData().getContent().get(0).getAge());
 
-        assertEquals(2, ResponseEntity.getBody().getData().getContent().get(1).getId());
-        assertEquals("gvp", ResponseEntity.getBody().getData().getContent().get(1).getName());
-        assertEquals("java", ResponseEntity.getBody().getData().getContent().get(1).getCourse());
-        assertEquals("mumbai", ResponseEntity.getBody().getData().getContent().get(1).getPlace());
-        assertEquals(25, ResponseEntity.getBody().getData().getContent().get(1).getAge());
+        assertEquals(2, responseEntity.getBody().getData().getContent().get(1).getId());
+        assertEquals("gvp", responseEntity.getBody().getData().getContent().get(1).getName());
+        assertEquals("java", responseEntity.getBody().getData().getContent().get(1).getCourse());
+        assertEquals("mumbai", responseEntity.getBody().getData().getContent().get(1).getPlace());
+        assertEquals(25, responseEntity.getBody().getData().getContent().get(1).getAge());
 
-        assertEquals("btm", ResponseEntity.getBody().getData().getContent().get(0).getAddresses().stream().findFirst().get().getArea());
-        assertEquals(560003, ResponseEntity.getBody().getData().getContent().get(0).getAddresses().stream().findFirst().get().getPincode());
+        assertEquals("btm", responseEntity.getBody().getData().getContent().get(0).getAddresses().stream().findFirst().get().getArea());
+        assertEquals(560003, responseEntity.getBody().getData().getContent().get(0).getAddresses().stream().findFirst().get().getPincode());
 
-        assertEquals("hsr", ResponseEntity.getBody().getData().getContent().get(1).getAddresses().stream().findFirst().get().getArea());
-        assertEquals(333333, ResponseEntity.getBody().getData().getContent().get(1).getAddresses().stream().findFirst().get().getPincode());
+        assertEquals("hsr", responseEntity.getBody().getData().getContent().get(1).getAddresses().stream().findFirst().get().getArea());
+        assertEquals(333333, responseEntity.getBody().getData().getContent().get(1).getAddresses().stream().findFirst().get().getPincode());
 
 
     }
 
 
     /*
- Given getWithPaginationAndSorting(pageable)
- Then  ServiceResponse
- Scenario Error (INTERNAL_SERVER_ERROR)
- */
+    Given getWithPaginationAndSorting(pageable)
+    Then  ResponseEntity<StudentResponse<Page<Student>>>
+    Scenario Error (INTERNAL_SERVER_ERROR)
+    */
     @Test
     void getWithPaginationAndSortingInternalServerError() {
 
@@ -543,8 +543,8 @@ class StudentControllerTest {
         ServiceResponse serviceResponse = new ServiceResponse<>();
 
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
-
-        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, serviceResponse.getHttpStatus());
+        ResponseEntity<StudentResponse<Page<Student>>> responseEntity = studentController.getWithPaginationAndSorting(Mockito.any(Pageable.class));
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, responseEntity.getStatusCode());
 
     }
 

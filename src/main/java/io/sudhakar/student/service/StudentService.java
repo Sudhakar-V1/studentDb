@@ -13,11 +13,11 @@ public interface StudentService {
 
     ServiceResponse<Student> getStudent(int id);
 
-    ServiceResponse<?> addStudent(Student student);
+    ServiceResponse<Void> addStudent(Student student);
 
-    ServiceResponse<?> updateStudent(int id, Student student);
+    ServiceResponse<Void> updateStudent(int id, Student student);
 
-    ServiceResponse<?> deleteStudent(int id);
+    ServiceResponse<Void> deleteStudent(int id);
 
     ServiceResponse<Page<Student>> getWithPaginationAndSorting(Pageable pageable);
 }

@@ -22,12 +22,12 @@ public class GenericServiceImpl implements GenericService {
         this.jdbcRepository = jdbcRepository;
     }
 
-    public ServiceResponse<List<Student>> getAllStudents(String queryName) {
+    public ServiceResponse<List<Student>> getAllStudents() {
         ServiceResponse<List<Student>> serviceResponse = new ServiceResponse<>();
 
         try {
             log.info("operation = getAllStudents, status = IN_PROGRESS");
-
+            String queryName = "findAll";
             List<Student> students = jdbcRepository.executeQuery(queryName);
 
             log.info("operation = getAllStudents, status = SUCCESS");
@@ -43,12 +43,12 @@ public class GenericServiceImpl implements GenericService {
         return serviceResponse;
     }
 
-    public ServiceResponse<List<Student>> getStudent(int id, String queryName) {
+    public ServiceResponse<List<Student>> getStudent(int id) {
         ServiceResponse<List<Student>> serviceResponse = new ServiceResponse<>();
 
         try {
             log.info("operation = getStudent, status = IN_PROGRESS");
-
+            String queryName = "findById";
             List<Student> students = jdbcRepository.executeByIdQuery(id, queryName);
 
             log.info("operation = getStudent, status = SUCCESS");
@@ -64,14 +64,13 @@ public class GenericServiceImpl implements GenericService {
         return serviceResponse;
     }
 
-    @Override
-    public ServiceResponse<?> addStudent(Student student, String queryName) {
+    public ServiceResponse<Void> addStudent(Student student) {
 
-        ServiceResponse<?> serviceResponse = new ServiceResponse<>();
+        ServiceResponse<Void> serviceResponse = new ServiceResponse<>();
 
         try {
             log.info("operation = addStudent, status = IN_PROGRESS");
-
+            String queryName = "add";
             jdbcRepository.executeAddQuery(student, queryName);
 
             serviceResponse.setHttpStatus(HttpStatus.OK);
@@ -86,12 +85,12 @@ public class GenericServiceImpl implements GenericService {
 
     }
 
-    @Override
-    public ServiceResponse<?> updateStudent(Student student, String queryName) {
+    public ServiceResponse<Void> updateStudent(Student student,int id) {
 
-        ServiceResponse<?> serviceResponse = new ServiceResponse<>();
+        ServiceResponse<Void> serviceResponse = new ServiceResponse<>();
 
         try {
+            String queryName = "update";
             log.info("operation = updateStudent, status = IN_PROGRESS");
 
             jdbcRepository.executeUpdateQuery(student, queryName);
@@ -108,14 +107,13 @@ public class GenericServiceImpl implements GenericService {
 
     }
 
-    @Override
-    public ServiceResponse<?> deleteStudent(int id, String queryName) {
+    public ServiceResponse<Void> deleteStudent(int id) {
 
-        ServiceResponse<?> serviceResponse = new ServiceResponse<>();
+        ServiceResponse<Void> serviceResponse = new ServiceResponse<>();
 
         try {
             log.info("operation = deleteStudent, status = IN_PROGRESS");
-
+            String queryName ="delete";
             jdbcRepository.executeDeleteQuery(id, queryName);
             serviceResponse.setHttpStatus(HttpStatus.OK);
 
@@ -130,14 +128,14 @@ public class GenericServiceImpl implements GenericService {
 
     }
 
-    @Override
-    public ServiceResponse<?> addMany(List<Student> students, String queryName) {
 
-        ServiceResponse<?> serviceResponse = new ServiceResponse<>();
+    public ServiceResponse<Void> addMany(List<Student> students) {
+
+        ServiceResponse<Void> serviceResponse = new ServiceResponse<>();
         try {
 
             log.info("operation = addMany, status = IN_PROGRESS");
-
+            String queryName = "insertMany";
             jdbcRepository.executeAddManyQuery(students, queryName);
             serviceResponse.setHttpStatus(HttpStatus.OK);
 
@@ -152,14 +150,13 @@ public class GenericServiceImpl implements GenericService {
 
     }
 
-    @Override
-    public ServiceResponse<?> updateMany(List<Integer> ids, String queryName, Student student) {
+    public ServiceResponse<Void> updateMany(List<Integer> ids, Student student) {
 
-        ServiceResponse<?> serviceResponse = new ServiceResponse<>();
+        ServiceResponse<Void> serviceResponse = new ServiceResponse<>();
         try {
 
             log.info("operation = updateMany, status = IN_PROGRESS");
-
+            String queryName = "updateMany";
             jdbcRepository.executeUpdateManyQuery(ids, queryName, student);
             serviceResponse.setHttpStatus(HttpStatus.OK);
 
@@ -174,14 +171,13 @@ public class GenericServiceImpl implements GenericService {
 
     }
 
-    @Override
-    public ServiceResponse<?> deleteMany(List<Integer> ids, String queryName) {
+    public ServiceResponse<Void> deleteMany(List<Integer> ids) {
 
-        ServiceResponse<?> serviceResponse = new ServiceResponse<>();
+        ServiceResponse<Void> serviceResponse = new ServiceResponse<>();
         try {
 
             log.info("operation = deleteMany, status = IN_PROGRESS");
-
+            String queryName = "deleteMany";
             jdbcRepository.executeDeleteManyQuery(ids, queryName);
             serviceResponse.setHttpStatus(HttpStatus.OK);
 
@@ -194,5 +190,6 @@ public class GenericServiceImpl implements GenericService {
         }
         return serviceResponse;
     }
+
 
 }

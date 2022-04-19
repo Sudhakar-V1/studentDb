@@ -6,9 +6,7 @@ import io.sudhakar.student.dto.Student;
 import java.util.List;
 
 public interface RowMapperService {
+    ServiceResponse<List<Student>> getAllStudents();
 
-    ServiceResponse<List<Student>> getAllStudents(String queryName);
-
-    ServiceResponse<List<Student>> getStudent(int id, String queryName);
-
+    ServiceResponse<List<Student>> getStudent(int id);
 }

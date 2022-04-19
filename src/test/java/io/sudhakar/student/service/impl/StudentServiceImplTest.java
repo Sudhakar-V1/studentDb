@@ -217,7 +217,7 @@ class StudentServiceImplTest {
         Mockito.when(studentRepository.save(Mockito.any(StudentEntity.class)))
                 .thenReturn(null);
 
-        ServiceResponse<?> serviceResponse = studentService.addStudent(student);
+        ServiceResponse<Void> serviceResponse = studentService.addStudent(student);
         serviceResponse.setHttpStatus(HttpStatus.OK);
 
         assertEquals(HttpStatus.OK, serviceResponse.getHttpStatus());
@@ -249,7 +249,7 @@ class StudentServiceImplTest {
         Mockito.when(studentRepository.save(Mockito.any(StudentEntity.class)))
                 .thenThrow(new NullPointerException(""));
 
-        ServiceResponse<?> serviceResponse = studentService.addStudent(student);
+        ServiceResponse<Void> serviceResponse = studentService.addStudent(student);
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, serviceResponse.getHttpStatus());
@@ -292,7 +292,7 @@ class StudentServiceImplTest {
         Mockito.when(studentRepository.save(Mockito.any(StudentEntity.class)))
                 .thenReturn(null);
 
-        ServiceResponse<?> serviceResponse = studentService.updateStudent(5, student);
+        ServiceResponse<Void> serviceResponse = studentService.updateStudent(5, student);
         serviceResponse.setHttpStatus(HttpStatus.OK);
 
         assertEquals(HttpStatus.OK, serviceResponse.getHttpStatus());
@@ -324,7 +324,7 @@ class StudentServiceImplTest {
         Mockito.when(studentRepository.save(Mockito.any(StudentEntity.class)))
                 .thenThrow(new NullPointerException(""));
 
-        ServiceResponse<?> serviceResponse = studentService.updateStudent(1, student);
+        ServiceResponse<Void> serviceResponse = studentService.updateStudent(1, student);
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, serviceResponse.getHttpStatus());
@@ -357,7 +357,7 @@ class StudentServiceImplTest {
 
         Mockito.doNothing().when(studentRepository).deleteById(1);
 
-        ServiceResponse<?> serviceResponse = studentService.deleteStudent(1);
+        ServiceResponse<Void> serviceResponse = studentService.deleteStudent(1);
         serviceResponse.setHttpStatus(HttpStatus.OK);
 
         assertEquals(HttpStatus.OK, serviceResponse.getHttpStatus());
@@ -376,7 +376,7 @@ class StudentServiceImplTest {
 
         doThrow(new NullPointerException("")).when(studentRepository).deleteById(1);
 
-        ServiceResponse<?> serviceResponse = studentService.deleteStudent(1);
+        ServiceResponse<Void> serviceResponse = studentService.deleteStudent(1);
         serviceResponse.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
 
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, serviceResponse.getHttpStatus());

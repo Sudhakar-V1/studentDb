@@ -24,13 +24,13 @@ public class RowMapperServiceImpl implements RowMapperService {
         this.rowMapperRepository = rowMapperRepository;
     }
 
-    public ServiceResponse<List<Student>> getAllStudents(String queryName) {
+    public ServiceResponse<List<Student>> getAllStudents() {
         ServiceResponse<List<Student>> serviceResponse = new ServiceResponse<>();
 
         try {
             log.info("operation = getAllStudents, status = IN_PROGRESS");
-
-            List<Student> students = rowMapperRepository.executeGetAllQuery(null,queryName,new StudentMapper());
+            String queryName = "findAll";
+            List<Student> students = rowMapperRepository.executeGetAllQuery(null, queryName, new StudentMapper());
 
             log.info("operation = getAllStudents, status = SUCCESS");
             serviceResponse.setHttpStatus(HttpStatus.OK);
@@ -46,13 +46,13 @@ public class RowMapperServiceImpl implements RowMapperService {
     }
 
 
-    public ServiceResponse<List<Student>> getStudent(int id, String queryName) {
+    public ServiceResponse<List<Student>> getStudent(int id) {
         ServiceResponse<List<Student>> serviceResponse = new ServiceResponse<>();
 
         try {
             log.info("operation = getStudent, status = IN_PROGRESS");
-
-            List<Student> students = rowMapperRepository.executeGetQuery(id,queryName,new StudentMapper());
+            String queryName = "findById";
+            List<Student> students = rowMapperRepository.executeGetQuery(id, queryName, new StudentMapper());
 
             log.info("operation = getStudent, status = SUCCESS");
             serviceResponse.setHttpStatus(HttpStatus.OK);
